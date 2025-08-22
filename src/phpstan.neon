@@ -1,0 +1,9 @@
+parameters:
+	level: 9
+	paths:
+		- app
+		- tests
+	ignoreErrors:
+		-
+			message: '#Return type of call to method#'
+			path: tests/Unit/Providers/FooTest.php
