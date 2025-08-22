@@ -1,0 +1,34 @@
+services:
+    caddy:
+        extends:
+            file: docker-compose.yml
+            service: caddy
+        environment:
+            - CADDY_TLS=internal
+            - CADDY_HOSTNAME=localhost
+            - CADDY_PHPFPM_GATEWAYS=app1:9000
+        depends_on:
+            app1:
+                condition: service_healthy
+
+    app1:
+        extends:
+            file: docker-compose.yml
+            service: app1
+        environment:
+            - PHP_XDEBUG_MODE=debug
+            - PHP_XDEBUG_START_WITH_REQUEST=yes
+            - PHP_XDEBUG_CLIENT_HOST=172.18.0.1
+            - PHP_XDEBUG_CLIENT_PORT=9900
+            - PHP_XDEBUG_MAX_NESTING_LEVEL=3000
+            - PHP_XDEBUG_OUTPUT_DIR=/tmp/xdebug
+            - PHP_XDEBUG_DISCOVER_CLIENT_HOST=false
+            - PHP_XDEBUG_LOG=/dev/stdout
+            - PHP_XDEBUG_LOG_LEVEL=0
+        build:
+            context: ..
+            dockerfile: docker/Dockerfile
+            target: build-development
+        image: dockerized-php:dev
+        volumes:
+            - ../src:/var/www/html

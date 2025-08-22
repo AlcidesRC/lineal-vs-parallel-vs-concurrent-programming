@@ -1,0 +1,17 @@
+{
+    admin off
+}
+
+import snippets/*
+
+{$CADDY_HOSTNAME} {
+    #import bearer-token
+    import common
+    import header {header.origin}
+    import not-found
+    import php-fastcgi
+    import remove-www
+    import ssl
+
+    root * /var/www/html/public
+}
