@@ -1,4 +1,4 @@
-# Solving a problem using different approaches: lineal vs parallel vs concurrent
+# Lineal vs Parallel vs Concurrent
 
 
 > This repository contains an application that allows to solve the same problem using lineal programming, parallel programming and concurrent programming. 
